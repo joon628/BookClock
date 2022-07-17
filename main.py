@@ -38,9 +38,12 @@ class Time_Text_Computation:
             with ThreadPoolExecutor() as executor:
                 future = executor.submit(sent_tokenize, sentences)
             self.sentences = future.result()
+            for indvSent in self.sentences:
+                if "CHAPTER" in indvSent or "Chapter" in indvSent:
+                    self.sentences.remove(indvSent)
         except:
             pass
-    
+
     def check_for_time(self):
         sutime = SUTime(mark_time_ranges=False, include_range=False)
         for sentence in self.sentences:

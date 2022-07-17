@@ -13,7 +13,7 @@ class ClockRun:
         self.mrkvSent = mrkvSent
 
     def renewMrk(self):
-        self.mrkvSent = genTimeSent(50)
+        self.mrkvSent = genTimeSent(100)
 
     def runMain(self):
         curr = ""
@@ -39,7 +39,6 @@ class ClockRun:
                 time.sleep(1)
 
     def randCallSent(self,indvNeedTime):
-
         randInt = random.randint(0,len(self.mrkvSent)-1)
         replacedTime  = self.mrkvSent[0][randInt].replace(self.mrkvSent[1][randInt],indvNeedTime)
         print(replacedTime)

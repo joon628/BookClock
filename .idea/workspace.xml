@@ -2,10 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="7c6a82e6-3f6a-4e02-b5f3-a0269df33a65" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ClockRun.py" beforeDir="false" afterPath="$PROJECT_DIR$/ClockRun.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Mrk2.py" beforeDir="false" afterPath="$PROJECT_DIR$/Mrk2.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ReadJSON.py" beforeDir="false" afterPath="$PROJECT_DIR$/ReadJSON.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/modified_gutenMeta.json" beforeDir="false" afterPath="$PROJECT_DIR$/data/modified_gutenMeta.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -165,7 +163,7 @@
       <option name="presentableId" value="Default" />
       <updated>1658024622259</updated>
       <workItem from="1658024625249" duration="4776000" />
-      <workItem from="1658029477705" duration="17593000" />
+      <workItem from="1658029477705" duration="19293000" />
     </task>
     <servers />
   </component>
