@@ -51,8 +51,6 @@ class Time_Text_Computation:
                     if ps_each['type'] == 'TIME':
                         time_value_raw = ps_each['timex-value'].split('T')[1]
                         time_value = time_value_raw.split('-')[0]
-                        print(time_value)
-                        print()
                         if not time_value.isalpha() and time_value is not "XX:XX":
                             if time_value in self.OuterBook:
                                 self.OuterBook[time_value].append([sentence, ps_each['text'],self.currTitle])
@@ -73,8 +71,9 @@ class Time_Text_Computation:
             if individual_parsed_sentence:
                 for ps_each in individual_parsed_sentence:
                     if ps_each['type'] == 'TIME':
-                        time_value = ps_each['timex-value'].split('T')[1]
-                        if not time_value.isalpha() or not "XX:XX":
+                        time_value_raw = ps_each['timex-value'].split('T')[1]
+                        time_value = time_value_raw.split('-')[0]
+                        if not time_value.isalpha() and time_value != "XX:XX":
                             if time_value in self.OuterBook:
                                 self.OuterBook[time_value].append([sentence, ps_each['text'],self.currTitle])
                             else:
