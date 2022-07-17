@@ -4,7 +4,7 @@ import json
 import random
 import sqlite3
 from ReadJSON import load_json
-
+from Mrk2 import genTimeSent
 
 
 class ClockRun:
@@ -12,10 +12,15 @@ class ClockRun:
         self.timeData = timeData
         self.mrkvSent = mrkvSent
 
+    def renewMrk(self):
+        self.mrkvSent = genTimeSent(50)
+
     def runMain(self):
         curr = ""
         while True:
             now = datetime.now()
+            if now == "0:0":
+                self.renewMrk()
             while curr != now.minute:
                 if now.minute < 10:
                     nowString = str(now.hour) + ":0" + str(now.minute)
@@ -24,6 +29,7 @@ class ClockRun:
 
                 if nowString in self.timeData.keys():
                     print(nowString)
+                    print("true")
                     selectInt = random.randint(0, len(self.timeData[nowString]))
                     print(self.timeData[nowString][selectInt])
                 else:

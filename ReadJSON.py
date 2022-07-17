@@ -3,35 +3,34 @@ import json
 import sqlite3
 import os
 
+def load_json(indvFile):
+    script_dir = os.path.dirname(__file__)
+    file_name = 'data/' + indvFile
+    file_path = os.path.join(script_dir, file_name)
+
+    df = pd.read_json(file_path)
+    return df
+
 def modify_json():
-    file_name = "./gutenberg-metadata.json"
-    df = pd.read_json(file_name)
+    df = load_json("gutenberg-metadata.json")
     df.drop(['formaturi','language','rights'],axis=0, inplace=True)
 
     # # df.drop(df[any("Fiction" in sub for sub in df['subject'])].index, inplace=True)
     index = 1
     index_list = []
     for df_sing in df.values[1]: #subject
-        if index == 131:
+        if any("Christian" in subject for subject in df_sing):
             pass
-        if any("Fiction" in subject for subject in df_sing):
+        elif any("Fiction" in subject for subject in df_sing):
             index_list.append(index)
         elif any("fiction" in subject for subject in df_sing):
             index_list.append(index)
+
         index +=1
 
-
     df = df[index_list].copy()
-    df.to_json('modified_gutenMeta.json')
+    df.to_json('data/modified_gutenMeta.json')
 
-def load_json(indvFile):
-    script_dir = os.path.dirname(__file__)
-    file_name = 'data/' + indvFile
-    file_path = os.path.join(script_dir, file_name)
-
-    # file_name = "modified_gutenMeta.json"
-    df = pd.read_json(file_path)
-    return df
 
 def write_json(data, indvFile):
     script_dir = os.path.dirname(__file__)

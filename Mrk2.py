@@ -116,5 +116,5 @@ def genTimeSent(numOfSent):
 
 if __name__ == "__main__":
     timeSent = genTimeSent(50)
-    write_json(timeSent, 'markv.json')
+    # write_json(timeSent, 'markv.json')
 

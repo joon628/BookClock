@@ -18,7 +18,7 @@ class Time_Text_Computation:
         self.currTitle = ""
         self.OuterBook = {}
         self.keywords = ["past", "-", "minutes", ":", "to", "o'clock", "noon", "midnight", "am", "pm", "P.M.", "A.M.", "after", "hours","half","quarter"]
-        self.metaDF = load_json()
+        self.metaDF = load_json("modified_gutenMeta.json")
         self.bookIDs = self.metaDF.keys()
 
     def generate_number_text(self):
@@ -100,10 +100,12 @@ if __name__ == '__main__':
         except:
             pass
         print("Process: "+ str((i/booknum)*100) +" %")
-    # print("main")
-    # print(TTC.OuterBook.keys())
-    # for k, v in TTC.OuterBook.items():
-    #     print(k, v)
+
+    print("main")
+    print(TTC.OuterBook.keys())
+    for k, v in TTC.OuterBook.items():
+        print(k, v)
+
     # dictionaryToJson(TTC.OuterBook)
     # df = populate_DF('./sample.json')
     # create_sql(df)
