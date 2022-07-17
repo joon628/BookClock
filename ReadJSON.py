@@ -3,7 +3,7 @@ import json
 import sqlite3
 
 def modify_json():
-    file_name = "gutenberg-metadata.json"
+    file_name = "./gutenberg-metadata.json"
     df = pd.read_json(file_name)
     df.drop(['formaturi','language','rights'],axis=0, inplace=True)
 
@@ -11,15 +11,17 @@ def modify_json():
     index = 1
     index_list = []
     for df_sing in df.values[1]: #subject
+        if index == 131:
+            pass
         if any("Fiction" in subject for subject in df_sing):
             index_list.append(index)
         elif any("fiction" in subject for subject in df_sing):
             index_list.append(index)
         index +=1
 
+
     df = df[index_list].copy()
     df.to_json('modified_gutenMeta.json')
-
 
 def load_json():
     file_name = "modified_gutenMeta.json"
@@ -30,17 +32,18 @@ def dictionaryToJson(inputDict):
     with open("sample.json", "w") as outfile:
         json.dump(inputDict, outfile)
         
-def populate_DF(json):
+def populate_DF(json_dir):
     df = pd.DataFrame(columns = ['time', 'sentence', 'highlight', 'title'])
-    for key in json:
-        print(json[key])
-        for value in json[key]:
-            df = df.append({'time': key,'sentence':value[0], 'highlight':value[1],'title':value[2]}, ignore_index=True)
+    with open(json_dir) as json_data:
+        df_data = json.load(json_data)
+    for key in df_data:
+        for value in df_data[key]:
+            temp = {'time': key,'sentence':value[0], 'highlight':value[1],'title':value[2]}
+            df2 = pd.DataFrame.from_dict([temp])
+            df = pd.concat([df,df2])  
     return df
     
 def create_sql(df):
     conn = sqlite3.connect('time_database')
-    c = conn.cursor()
-    c.execute('CREATE TABLE IF NOT EXISTS time (time datetime64,sentence text,  highlight text, title text)')
-    conn.commit()
     df.to_sql('time_database', conn, if_exists='replace', index = False)
+    conn.commit()

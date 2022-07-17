@@ -1,3 +1,4 @@
+from codecs import ignore_errors
 import json
 from ReadJSON import load_json, dictionaryToJson
 import time
@@ -26,16 +27,14 @@ class BookClock:
     def populate_DF(self):
         df = pd.DataFrame(columns = ['time', 'sentence', 'highlight', 'title'])
         for key in self.json:
-            print(self.json[key])
             for value in self.json[key]:
-                df = df.append({'time': key,'sentence':value[0], 'highlight':value[1],'title':value[2]}, ignore_index=True)
+                temp = {'time': key,'sentence':value[0], 'highlight':value[1],'title':value[2]}
+                df2 = pd.DataFrame.from_dict([temp])
+                df = pd.concat([df,df2])  
         self.DF = df
     
     def create_sql(self):
         conn = sqlite3.connect('time_database')
-        c = conn.cursor()
-        c.execute('CREATE TABLE IF NOT EXISTS time (time datetime64,sentence text,  highlight text, title text)')
-        conn.commit()
         df = self.DF
         df.to_sql('time_database', conn, if_exists='replace', index = False)
  
