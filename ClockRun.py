@@ -2,10 +2,15 @@ import time
 from datetime import datetime
 import json
 import random
+import sqlite3
+from ReadJSON import load_json
 
-class ClcokRun:
-    def __init__(self, timeData):
+
+
+class ClockRun:
+    def __init__(self, timeData, mrkvSent):
         self.timeData = timeData
+        self.mrkvSent = mrkvSent
 
     def runMain(self):
         curr = ""
@@ -18,16 +23,35 @@ class ClcokRun:
                     nowString = str(now.hour) + ":" + str(now.minute)
 
                 if nowString in self.timeData.keys():
+                    print(nowString)
                     selectInt = random.randint(0, len(self.timeData[nowString]))
                     print(self.timeData[nowString][selectInt])
                 else:
                     print(nowString)
+                    self.randCallSent(nowString)
                 curr = now.minute
                 time.sleep(1)
 
+    def randCallSent(self,indvNeedTime):
+
+        randInt = random.randint(0,len(self.mrkvSent)-1)
+        replacedTime  = self.mrkvSent[0][randInt].replace(self.mrkvSent[1][randInt],indvNeedTime)
+        print(replacedTime)
+
 
 if __name__ == "__main__":
-    with open('testJson.json') as json_data:
-        time_data = json.load(json_data)
-    CR = ClcokRun(time_data)
+    mrkvSent = load_json('markv.json')
+
+    con = sqlite3.connect("time_database")
+    cur = con.cursor()
+    time_data = {}
+    for row in cur.execute('SELECT * FROM time_database;'):
+        if row[0] in time_data.keys():
+            time_data[row[0]].append(row[1:])
+        else:
+            time_data[row[0]] = [row[1:]]
+
+
+    CR = ClockRun(time_data,mrkvSent)
     CR.runMain()
+

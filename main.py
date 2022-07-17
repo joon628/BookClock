@@ -51,7 +51,7 @@ class Time_Text_Computation:
                     if ps_each['type'] == 'TIME':
                         time_value_raw = ps_each['timex-value'].split('T')[1]
                         time_value = time_value_raw.split('-')[0]
-                        if not time_value.isalpha() and time_value is not "XX:XX":
+                        if not time_value.isalpha() and time_value != "XX:XX":
                             if time_value in self.OuterBook:
                                 self.OuterBook[time_value].append([sentence, ps_each['text'],self.currTitle])
                             else:
@@ -91,7 +91,7 @@ if __name__ == '__main__':
     TTC.generate_number_text()
     modify_json()
     
-    booknum = 1000
+    booknum = 1
     testRange = TTC.bookIDs[:booknum]
     for i in testRange:
         try:
@@ -100,11 +100,11 @@ if __name__ == '__main__':
         except:
             pass
         print("Process: "+ str((i/booknum)*100) +" %")
-    print("main")
-    print(TTC.OuterBook.keys())
-    for k, v in TTC.OuterBook.items():
-        print(k, v)
-    dictionaryToJson(TTC.OuterBook)
-    #df = populate_DF('./sample.json')
-    #create_sql(df)
+    # print("main")
+    # print(TTC.OuterBook.keys())
+    # for k, v in TTC.OuterBook.items():
+    #     print(k, v)
+    # dictionaryToJson(TTC.OuterBook)
+    # df = populate_DF('./sample.json')
+    # create_sql(df)
 

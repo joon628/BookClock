@@ -1,6 +1,7 @@
 import pandas as pd
 import json
 import sqlite3
+import os
 
 def modify_json():
     file_name = "./gutenberg-metadata.json"
@@ -23,10 +24,22 @@ def modify_json():
     df = df[index_list].copy()
     df.to_json('modified_gutenMeta.json')
 
-def load_json():
-    file_name = "modified_gutenMeta.json"
-    df = pd.read_json(file_name)
+def load_json(indvFile):
+    script_dir = os.path.dirname(__file__)
+    file_name = 'data/' + indvFile
+    file_path = os.path.join(script_dir, file_name)
+
+    # file_name = "modified_gutenMeta.json"
+    df = pd.read_json(file_path)
     return df
+
+def write_json(data, indvFile):
+    script_dir = os.path.dirname(__file__)
+    file_name = 'data/' + indvFile
+    file_path = os.path.join(script_dir, file_name)
+    with open(file_path, 'w') as outfile:
+         json.dump(data, outfile)
+
 
 def dictionaryToJson(inputDict):
     with open("sample.json", "w") as outfile:
